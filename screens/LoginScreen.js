@@ -15,7 +15,11 @@ const LoginScreen = () => {
   };
 
   const navigateToRegister = () => {
-    navigation.navigate("Register"); // Navigate to the Register screen
+    navigation.navigate("Register"); 
+  };
+
+  const navigateToHome = () => {
+    navigation.navigate("Home"); 
   };
 
   return (
@@ -37,7 +41,7 @@ const LoginScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity style={styles.button} onPress={navigateToHome}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <Text style={styles.footerText}>
