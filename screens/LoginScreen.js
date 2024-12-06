@@ -1,90 +1,103 @@
-// LoginScreen.js
-import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const LoginScreen = ({ navigation }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const LoginScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigation = useNavigation(); // Get navigation object
 
   const handleLogin = () => {
-    if (!username || !password) {
-      Alert.alert('Error', 'Please fill in both fields');
-      return;
-    }
-    // Handle login logic here (e.g., call an API)
-    console.log('Username:', username);
-    console.log('Password:', password);
+    // Add login functionality here
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
+
+  const navigateToRegister = () => {
+    navigation.navigate("Register"); // Navigate to the Register screen
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-
+      <Text style={styles.title}>Welcome Back</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Email"
+        placeholderTextColor="#aaa"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor="#aaa"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
-
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={styles.registerText}>
-          Don't have an account? <Text style={styles.linkText}>Register now</Text>
+      <Text style={styles.footerText}>
+        Don't have an account?{" "}
+        <Text style={styles.link} onPress={navigateToRegister}>
+          Sign up
         </Text>
-      </TouchableOpacity>
+      </Text>
     </View>
   );
 };
 
+export default LoginScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#f8f9fa",
   },
   title: {
     fontSize: 24,
+    fontWeight: "bold",
     marginBottom: 20,
+    color: "#333",
   },
   input: {
-    width: '100%',
-    padding: 10,
-    marginBottom: 15,
+    width: "100%",
+    height: 50,
+    borderColor: "#ddd",
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    marginBottom: 15,
+    backgroundColor: "#fff",
   },
   button: {
-    backgroundColor: '#007BFF',
-    padding: 10,
-    width: '100%',
-    alignItems: 'center',
-    borderRadius: 5,
+    width: "100%",
+    height: 50,
+    backgroundColor: "#28a745",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    marginTop: 10,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
+    fontWeight: "bold",
   },
-  registerText: {
+  footerText: {
     marginTop: 15,
+    fontSize: 14,
+    color: "#555",
   },
-  linkText: {
-    color: '#007BFF',
+  link: {
+    color: "#007BFF",
+    fontWeight: "bold",
   },
 });
-
-export default LoginScreen;
-

@@ -1,122 +1,122 @@
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const RegisterScreen = () => {
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigation = useNavigation();
 
   const handleRegister = () => {
-    if (password === confirmPassword) {
-      console.log('Username:', username)
-      console.log('Email:', email)
-      console.log('Password:', password)
-      // Handle registration logic here
-    } else {
-      console.log('Passwords do not match')
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Passwords do not match");
+      return;
     }
-  }
+    // Add signup functionality here
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
 
-  const handleLoginNavigation = () => {
-    // Handle navigation to login screen
-    console.log('Navigate to Login Screen')
-  }
+  const navigateToLogin = () => {
+    navigation.navigate("Login"); // Navigate to the Register screen
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
-      
+      <Text style={styles.title}>Create an Account</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Name"
+        placeholderTextColor="#aaa"
+        value={name}
+        onChangeText={setName}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor="#aaa"
+        keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor="#aaa"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
-
       <TextInput
         style={styles.input}
         placeholder="Confirm Password"
+        placeholderTextColor="#aaa"
         secureTextEntry
         value={confirmPassword}
         onChangeText={setConfirmPassword}
       />
-
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Register</Text>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleLoginNavigation} style={styles.loginLink}>
-        <Text style={styles.loginText}>
-          Already have an account? <Text style={styles.linkText}>Login now</Text>
-        </Text>
-      </TouchableOpacity>
+      <Text style={styles.footerText}>
+        Already have an account? <Text style={styles.link} onPress={navigateToLogin}>Log in</Text>
+      </Text>
     </View>
-  )
-}
+  );
+};
 
-export default RegisterScreen
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: "#f8f9fa",
   },
   title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 40,
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: "#333",
   },
   input: {
-    width: '100%',
+    width: "100%",
     height: 50,
-    borderColor: '#ccc',
+    borderColor: "#ddd",
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     fontSize: 16,
+    marginBottom: 15,
+    backgroundColor: "#fff",
   },
   button: {
-    width: '100%',
+    width: "100%",
     height: 50,
-    backgroundColor: '#007bff',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#28a745",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 8,
+    marginTop: 10,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  loginLink: {
-    marginTop: 20,
+  footerText: {
+    marginTop: 15,
+    fontSize: 14,
+    color: "#555",
   },
-  loginText: {
-    fontSize: 16,
-    color: '#555',
+  link: {
+    color: "#007BFF",
+    fontWeight: "bold",
   },
-  linkText: {
-    color: '#007bff',
-    fontWeight: 'bold',
-  },
-})
+});
