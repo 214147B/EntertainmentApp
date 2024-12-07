@@ -1,49 +1,101 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigation = useNavigation(); // Get navigation object
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
+  const navigation = useNavigation();
+
+  // Validate email format
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Handle form submission
   const handleLogin = () => {
-    // Add login functionality here
-    console.log("Email:", email);
-    console.log("Password:", password);
+    let valid = true;
+
+    if (!email || !validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (!password || password.length < 6) {
+      setPasswordError("Password must be at least 6 characters.");
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    if (valid) {
+      console.log("Email:", email);
+      console.log("Password:", password);
+      Alert.alert("Login Successful", `Welcome back, ${email}!`);
+      navigation.navigate("Home"); // Navigate to the Home screen
+    }
   };
 
   const navigateToRegister = () => {
-    navigation.navigate("Register"); 
-  };
-
-  const navigateToHome = () => {
-    navigation.navigate("Home"); 
+    navigation.navigate("Register");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome Back</Text>
+
       <TextInput
         style={styles.input}
         placeholder="Email"
         placeholderTextColor="#aaa"
         keyboardType="email-address"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(text) => setEmail(text)}
+        onBlur={() => {
+          if (email && !validateEmail(email)) {
+            setEmailError("Please enter a valid email address.");
+          } else {
+            setEmailError("");
+          }
+        }}
       />
+      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+
       <TextInput
         style={styles.input}
         placeholder="Password"
         placeholderTextColor="#aaa"
         secureTextEntry
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(text) => setPassword(text)}
+        onBlur={() => {
+          if (password && password.length < 6) {
+            setPasswordError("Password must be at least 6 characters.");
+          } else {
+            setPasswordError("");
+          }
+        }}
       />
-      <TouchableOpacity style={styles.button} onPress={navigateToHome}>
+      {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
+
       <Text style={styles.footerText}>
         Don't have an account?{" "}
         <Text style={styles.link} onPress={navigateToRegister}>
@@ -78,7 +130,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 15,
     fontSize: 16,
-    marginBottom: 15,
+    marginBottom: 5,
     backgroundColor: "#fff",
   },
   button: {
@@ -103,5 +155,12 @@ const styles = StyleSheet.create({
   link: {
     color: "#007BFF",
     fontWeight: "bold",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    marginBottom: 10,
+    textAlign: "left",
+    width: "100%",
   },
 });
