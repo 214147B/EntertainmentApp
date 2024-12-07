@@ -78,13 +78,13 @@ const RegisterScreen = () => {
 
       <TextInput
         style={styles.input}
-        placeholder="Name"
+        placeholder="User Name"
         placeholderTextColor="#aaa"
         value={name}
         onChangeText={setName}
         onBlur={() => {
           if (!name.trim()) {
-            setNameError("Name is required.");
+            setNameError("User Name is required.");
           } else {
             setNameError("");
           }

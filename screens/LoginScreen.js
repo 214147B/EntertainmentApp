@@ -10,29 +10,23 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [emailError, setEmailError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const navigation = useNavigation();
-
-  // Validate email format
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
 
   // Handle form submission
   const handleLogin = () => {
     let valid = true;
 
-    if (!email || !validateEmail(email)) {
-      setEmailError("Please enter a valid email address.");
+    if (!username) {
+      setUsernameError("Please enter your username.");
       valid = false;
     } else {
-      setEmailError("");
+      setUsernameError("");
     }
 
     if (!password || password.length < 6) {
@@ -43,9 +37,9 @@ const LoginScreen = () => {
     }
 
     if (valid) {
-      console.log("Email:", email);
+      console.log("Username:", username);
       console.log("Password:", password);
-      Alert.alert("Login Successful", `Welcome back, ${email}!`);
+      Alert.alert("Login Successful", `Welcome back, ${username}!`);
       navigation.navigate("Home"); // Navigate to the Home screen
     }
   };
@@ -60,20 +54,19 @@ const LoginScreen = () => {
 
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        placeholder="User Name"
         placeholderTextColor="#aaa"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
+        value={username}
+        onChangeText={(text) => setUsername(text)}
         onBlur={() => {
-          if (email && !validateEmail(email)) {
-            setEmailError("Please enter a valid email address.");
+          if (username === "") {
+            setUsernameError("Please enter your username.");
           } else {
-            setEmailError("");
+            setUsernameError("");
           }
         }}
       />
-      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+      {usernameError ? <Text style={styles.errorText}>{usernameError}</Text> : null}
 
       <TextInput
         style={styles.input}
