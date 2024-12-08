@@ -44,11 +44,12 @@ const RegisterScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create an Account</Text>
+      <Text style={styles.title}>🎬 Create an Account 🎥</Text>
 
       <TextInput
         style={styles.input}
         placeholder="Name"
+        placeholderTextColor="#aaa"
         value={name}
         onChangeText={setName}
       />
@@ -56,6 +57,7 @@ const RegisterScreen = () => {
       <TextInput
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor="#aaa"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -64,6 +66,7 @@ const RegisterScreen = () => {
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor="#aaa"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
@@ -72,6 +75,7 @@ const RegisterScreen = () => {
       <TextInput
         style={styles.input}
         placeholder="Confirm Password"
+        placeholderTextColor="#aaa"
         secureTextEntry
         value={confirmPassword}
         onChangeText={setConfirmPassword}
@@ -98,39 +102,47 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#121212", // Dark theme for entertainment
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    marginBottom: 20,
+    color: "#FFD700", // Golden color for a cinematic feel
+    marginBottom: 30,
   },
   input: {
     width: "100%",
     height: 50,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#444",
     borderRadius: 8,
+    backgroundColor: "#1E1E1E", // Dark input background
     paddingHorizontal: 15,
+    color: "#fff", // White text color
     marginBottom: 10,
   },
   button: {
     width: "100%",
     height: 50,
-    backgroundColor: "#28a745",
+    backgroundColor: "#E50914", // Netflix-style red
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
+    marginTop: 10,
   },
   buttonText: {
     color: "#fff",
     fontSize: 18,
+    fontWeight: "bold",
   },
   footerText: {
     marginTop: 20,
+    color: "#aaa",
+    fontSize: 14,
   },
   link: {
-    color: "#007BFF",
+    color: "#FFD700", // Golden link color
     fontWeight: "bold",
   },
 });
