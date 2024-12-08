@@ -12,13 +12,11 @@ import { useNavigation } from "@react-navigation/native";
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const navigation = useNavigation();
 
-  // Handle form submission
   const handleLogin = () => {
     let valid = true;
 
@@ -37,15 +35,9 @@ const LoginScreen = () => {
     }
 
     if (valid) {
-      console.log("Username:", username);
-      console.log("Password:", password);
       Alert.alert("Login Successful", `Welcome back, ${username}!`);
-      navigation.navigate("Home"); // Navigate to the Home screen
+      navigation.navigate("Home", { username }); // Pass the username to Home
     }
-  };
-
-  const navigateToRegister = () => {
-    navigation.navigate("Register");
   };
 
   return (
@@ -55,33 +47,17 @@ const LoginScreen = () => {
       <TextInput
         style={styles.input}
         placeholder="User Name"
-        placeholderTextColor="#aaa"
         value={username}
-        onChangeText={(text) => setUsername(text)}
-        onBlur={() => {
-          if (username === "") {
-            setUsernameError("Please enter your username.");
-          } else {
-            setUsernameError("");
-          }
-        }}
+        onChangeText={setUsername}
       />
       {usernameError ? <Text style={styles.errorText}>{usernameError}</Text> : null}
 
       <TextInput
         style={styles.input}
         placeholder="Password"
-        placeholderTextColor="#aaa"
         secureTextEntry
         value={password}
-        onChangeText={(text) => setPassword(text)}
-        onBlur={() => {
-          if (password && password.length < 6) {
-            setPasswordError("Password must be at least 6 characters.");
-          } else {
-            setPasswordError("");
-          }
-        }}
+        onChangeText={setPassword}
       />
       {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
 
@@ -91,7 +67,7 @@ const LoginScreen = () => {
 
       <Text style={styles.footerText}>
         Don't have an account?{" "}
-        <Text style={styles.link} onPress={navigateToRegister}>
+        <Text style={styles.link} onPress={() => navigation.navigate("Register")}>
           Sign up
         </Text>
       </Text>
@@ -107,24 +83,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#f8f9fa",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
-    color: "#333",
   },
   input: {
     width: "100%",
     height: 50,
-    borderColor: "#ddd",
     borderWidth: 1,
+    borderColor: "#ddd",
     borderRadius: 8,
     paddingHorizontal: 15,
-    fontSize: 16,
-    marginBottom: 5,
-    backgroundColor: "#fff",
+    marginBottom: 10,
   },
   button: {
     width: "100%",
@@ -133,17 +105,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 8,
-    marginTop: 10,
   },
   buttonText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: "bold",
   },
   footerText: {
-    marginTop: 15,
-    fontSize: 14,
-    color: "#555",
+    marginTop: 20,
   },
   link: {
     color: "#007BFF",
@@ -152,8 +120,5 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     fontSize: 12,
-    marginBottom: 10,
-    textAlign: "left",
-    width: "100%",
   },
 });
