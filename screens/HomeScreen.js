@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, FlatList, Image, ActivityIndicator, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome icons
+import Icon from "react-native-vector-icons/FontAwesome"; // Import FontAwesome icons
 
 const HomeScreen = () => {
   const route = useRoute();
@@ -43,6 +51,9 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Welcome, {username || "User"}!</Text>
+      <Text style={styles.favoriteCountText}>
+        Total Favorites: {favorites.length}
+      </Text>
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -54,7 +65,9 @@ const HomeScreen = () => {
             return (
               <View style={styles.movieContainer}>
                 <Image
-                  source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
+                  source={{
+                    uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+                  }}
                   style={styles.moviePoster}
                 />
                 <View style={styles.movieDetails}>
@@ -92,12 +105,30 @@ const styles = StyleSheet.create({
     backgroundColor: "#121212",
   },
   welcomeText: {
-    fontSize: 25,
+    fontSize: 23,
     fontWeight: "bold",
-    color: "#E91E63",
+    color: "#FFD700",
     marginVertical: 20,
-    textAlign: "center",
+    textAlign: "left",
+    textShadowColor: "#FF4500",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 10,
+    textTransform: "uppercase",
+    letterSpacing: 2,
   },
+  favoriteCountText: {
+    fontSize: 20, 
+    fontWeight: "bold",
+    color: "red", 
+    marginBottom: 20,
+    textAlign: "center",
+    textShadowColor: "#FF4500", 
+    textShadowOffset: { width: 2, height: 2 }, 
+    textShadowRadius: 8, 
+    textTransform: "uppercase", 
+    letterSpacing: 3, 
+  },
+  
   movieContainer: {
     flexDirection: "row",
     marginBottom: 16,
@@ -141,6 +172,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingLeft: 10,
-    
   },
 });
