@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor: "#0D0D0D", // Dark cinematic background
+    backgroundColor: "#0D0D0D", 
   },
   welcomeText: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFD700", // Gold color for luxury effect
+    color: "#FFD700", 
     marginVertical: 20,
     textAlign: "center",
     textShadowColor: "#FF4500",
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   favoriteCountText: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#FF6347", // Tomato color for prominence
+    color: "#FF6347", 
     marginBottom: 20,
     textAlign: "center",
     textTransform: "uppercase",
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   movieContainer: {
     flexDirection: "row",
     marginBottom: 16,
-    backgroundColor: "#1C1C1C", // Slightly lighter than the main background
+    backgroundColor: "#1C1C1C",
     borderRadius: 16,
     overflow: "hidden",
     shadowColor: "#000",
